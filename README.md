@@ -6,7 +6,8 @@
 # 2. Cài đặt chương trình
 1. Tải Visual Studio Code tại https://code.visualstudio.com/ và cài đặt môi trường cho C++
 2. Clone file github về máy
-3. Chạy game bằng câu lệnh "make" và ".\main.exe" tại terminal hoặc chạy bằng file main.exe
+3. Chạy game bằng câu lệnh "make" và ".\main.exe" tại terminal
+4. Cách nhanh hơn là clone file gihub về máy và chạy file main.exe
 
 # 3. Cách chơi
 1. Điều khiển rắn bằng phím Left, Right, Up, Down để ăn táo

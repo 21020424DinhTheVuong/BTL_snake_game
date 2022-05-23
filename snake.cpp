@@ -26,5 +26,5 @@ RectangleShape SnakeSection::getShape(){
 
 
 void SnakeSection::update(){
-    section.setPosition(position);
+    section.setPosition(position);//setPosition nay la ham cua SFML
 }

@@ -14,7 +14,7 @@ Apple::Apple(){
 }
 
 void Apple::setPosition(Vector2f newPosition){
-    sprite.setPosition(newPosition);//setPosition nay la ham thanh vien cua class apple
+    sprite.setPosition(newPosition);//setPosition nay la ham cua sfml
 }
 
 RectangleShape Apple::getSprite(){

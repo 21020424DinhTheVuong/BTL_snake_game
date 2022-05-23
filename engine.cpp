@@ -19,7 +19,7 @@ using namespace sf;
 Engine::Engine(){
     resolution = Vector2f(1200, 800);
     window.create (VideoMode(resolution.x, resolution.y), "SDL Game!" );
-    //window.setFramerateLimit(FPS);
+    window.setFramerateLimit(FPS);
     maxLevel = 0;
     checkLevelFiles();
 
@@ -53,7 +53,7 @@ Engine::Engine(){
     setupText(&pressEnterText, mainFont, "Press Enter to play again", 70,Color::Yellow);
     FloatRect pressEnterTextBounds = pressEnterText.getGlobalBounds();
     pressEnterText.setPosition(Vector2f(resolution.x/2 - pressEnterTextBounds.width/2, 400));
-    pressEnterText.setOutlineColor(Color::Black);
+    pressEnterText.setOutlineColor(Color::Red);
     pressEnterText.setOutlineThickness(2);
 
 
@@ -126,15 +126,46 @@ void Engine::input(){
         }
 }
 
+void Engine::startThegame(){
+    score = 0;
+    speed = 10;
+    SnakeDirection = Direction::RIGHT;
+
+    timeSinceLastMove = Time::Zero;
+
+    sectionToAdd = 0;
+    directionQueue.clear();
+    wallSection.clear();//clear wall before begin next level game
+    appleEatenThisLevel = 0;
+    appleEatenTotal = 0;
+    currentLevel = 1;
+    loadLevel(currentLevel);
+    newSnake();
+    moveApple();
+    currentGameState = GameState::RUNNING;
+    lastGameState = currentGameState;
+
+    currentLevelText.setString("level " + to_string(currentLevel));
+    appleEatenText.setString("apple " + to_string(appleEatenTotal));
+
+    FloatRect currentLevelTextBounds = currentLevelText.getGlobalBounds();
+    appleEatenText.setPosition(
+                Vector2f(currentLevelTextBounds.left + currentLevelTextBounds.width + 20, -9));
+    scoreText.setString("Score: " + to_string(score));
+
+    FloatRect scoreTextBounds = scoreText.getGlobalBounds();
+    scoreText.setPosition(Vector2f(resolution.x - scoreTextBounds.width - 15, -9));
+}
+
 void Engine::addDirection(int newDirection){
     if(directionQueue.empty()){
             directionQueue.emplace_back(newDirection);
         }
-        else {
-            if(directionQueue.back() != newDirection){
-                directionQueue.emplace_back(newDirection);    
-            }
+    else {
+        if(directionQueue.back() != newDirection){
+            directionQueue.emplace_back(newDirection);    
         }
+    }
 }
 
 void Engine::update(){
@@ -173,8 +204,9 @@ void Engine::update(){
         
        
 
-        FloatRect scoreTextBounds = scoreText.getGlobalBounds();
-        scoreText.setPosition(Vector2f(resolution.x - scoreTextBounds.width -15 , -9));
+        // FloatRect scoreTextBounds = scoreText.getGlobalBounds();
+        // scoreText.setPosition(Vector2f(resolution.x - scoreTextBounds.width -15 , -9));
+
         //grow the snake
         if(sectionToAdd){
             addSnakeSection();
@@ -194,18 +226,19 @@ void Engine::update(){
                 break;
             case Direction::UP:
                 snake[0].setPosition(Vector2f(thisSectionPosition.x, thisSectionPosition.y - 20));
-                break;    
+                break;  
+            //cac ham setPosition nay la ham thanh vien cua class snake  
         }
 
         //update snake's tail position
         for(int s=1 ; s < snake.size(); s++){
-            thisSectionPosition = snake[s].getPosition();
-            snake[s].setPosition(lastSectionPosition);
+            thisSectionPosition = snake[s].getPosition();//getPosition la ham thanh vien cua class snake
+            snake[s].setPosition(lastSectionPosition);//setPosition la ham thanh vien cua class snake
             lastSectionPosition = thisSectionPosition;
         }
         //run snake section update function
         for(auto & s : snake){
-            s.update();
+            s.update();//update nay la ham thanh vien cua class snakeSection
         }
 
         //collision detection with apple
@@ -269,6 +302,34 @@ void Engine::update(){
     }
 }// end update snake direction
 
+void Engine::GameRun(){
+    Clock clock;
+
+    //main loop, run until the window is closed;
+    while (window.isOpen()){
+        Time dt = clock.restart();
+        
+
+        if(currentGameState == GameState::PAUSED || currentGameState == GameState::GAMEOVER){
+            //if pausing, then check input, if un-pause, continue game loop
+            input();
+
+            //draw the gameover screen
+            if(currentGameState == GameState::GAMEOVER){
+                draw();
+            }
+
+             //sleep(milliseconds(2));
+             continue;
+        }
+        timeSinceLastMove += dt;
+        input();    
+        update();
+        draw();
+    }
+    window.clear();
+    window.display();
+}
 
 void Engine::draw(){
      window.clear(Color::Black);
@@ -333,7 +394,7 @@ void Engine::moveApple(){
     //find the location to place apple
     // must not be inside the apple
 
-    Vector2f appleResolution = Vector2f(resolution.x/20 -2, resolution.y /20 -2);
+   // Vector2f appleResolution = Vector2f(resolution.x/20 -2, resolution.y /20 -2);
     Vector2f newAppleLocation;
 
     bool badLocation = false;
@@ -416,41 +477,11 @@ void Engine::beginNextLevel(){
     moveApple();
     currentLevelText.setString("level " + to_string(currentLevel));
     FloatRect currentLevelTextBounds = currentLevelText.getGlobalBounds();
-    appleEatenText.setPosition(
-        Vector2f(currentLevelTextBounds.left + currentLevelTextBounds.width + 20, -9));
+    // appleEatenText.setPosition(
+    //     Vector2f(currentLevelTextBounds.left + currentLevelTextBounds.width + 20, -9));
 }
 
 
-void Engine::startThegame(){
-    score = 0;
-    speed = 10;
-    SnakeDirection = Direction::RIGHT;
-
-    timeSinceLastMove = Time::Zero;
-
-    sectionToAdd = 0;
-    directionQueue.clear();
-    wallSection.clear();//clear wall before begin next level game
-    appleEatenThisLevel = 0;
-    appleEatenTotal = 0;
-    currentLevel = 1;
-    loadLevel(currentLevel);
-    newSnake();
-    moveApple();
-    currentGameState = GameState::RUNNING;
-    lastGameState = currentGameState;
-
-    currentLevelText.setString("level " + to_string(currentLevel));
-    appleEatenText.setString("apple " + to_string(appleEatenTotal));
-
-    FloatRect currentLevelTextBounds = currentLevelText.getGlobalBounds();
-    appleEatenText.setPosition(
-                Vector2f(currentLevelTextBounds.left + currentLevelTextBounds.width + 20, -9));
-    scoreText.setString("Score: " + to_string(score));
-
-    FloatRect scoreTextBounds = scoreText.getGlobalBounds();
-    scoreText.setPosition(Vector2f(resolution.x - scoreTextBounds.width - 15, -9));
-}
 
 void Engine::togglePause(){
     if(currentGameState == GameState::RUNNING || currentGameState == GameState::WINNING ){
@@ -466,31 +497,3 @@ void Engine::togglePause(){
    
 }
 
-void Engine::GameRun(){
-    Clock clock;
-
-    //main loop, run until the window is closed;
-    while (window.isOpen()){
-        Time dt = clock.restart();
-        
-
-        if(currentGameState == GameState::PAUSED || currentGameState == GameState::GAMEOVER){
-            //if pausing, then check input, if un-pause, continue game loop
-            input();
-
-            //draw the gameover screen
-            if(currentGameState == GameState::GAMEOVER){
-                draw();
-            }
-
-            sleep(milliseconds(2));
-            continue;
-        }
-        timeSinceLastMove += dt;
-        input();    
-        update();
-        draw();
-    }
-    window.clear();
-    window.display();
-}

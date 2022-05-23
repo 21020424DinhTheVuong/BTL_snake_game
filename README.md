@@ -25,4 +25,4 @@
 # 5. Nhận xét
 1. Game chơi khá ổn, mượt
 2. Có tham khảo trên youtube
-3. Hướng phát triển: Thêm level (hiện chỉ có 4 level), Thêm chức năng highscore và cài đặt âm thanh tùy chọn, tối ưu hơn nữa các phần code,...
+3. Hướng phát triển: Thêm level (hiện chỉ có 4 level), Thêm chức năng highscore, nhập tên người chơi và cài đặt âm thanh tùy chọn, tối ưu hơn nữa các phần code, thêm 1 số item

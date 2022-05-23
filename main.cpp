@@ -163,7 +163,7 @@ int main()
 
                     if(x == 1)
                     {   
-                        
+                        soundMenu.pause();
                         RenderWindow About(VideoMode(1200, 800), "About");
 
                         while(About.isOpen())
@@ -174,12 +174,12 @@ int main()
                                 if(aevent.type == Event::Closed)
                                 {
                                     About.close();
-                                    
+                                    soundMenu.play();
                                 }
                                 if(aevent.type == Event::KeyPressed){
                                     if(aevent.key.code == Keyboard::Escape) {
                                         About.close();
-                                        
+                                        soundMenu.play();
                                     }
                                 }
                             }

@@ -24,7 +24,7 @@ class Engine{
 private:
     Vector2f resolution;
     RenderWindow window;
-    const unsigned int FPS = 60;
+    //const unsigned int FPS = 60;
    // static const Time TimePerFrame ;
 
     vector<SnakeSection> snake;
@@ -36,7 +36,7 @@ private:
 
     int appleEatenThisLevel;
     int appleEatenTotal;
-    int score;
+    unsigned long long int score;
 
     Apple apple;
 

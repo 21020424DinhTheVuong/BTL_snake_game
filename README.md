@@ -4,10 +4,10 @@
 2. Sử dụng ngôn ngữ C++ và đồ họa SFML https://www.sfml-dev.org/tutorials/2.5/
 3. Âm thanh và hình ảnh lấy trên internet
 # 2. Cài đặt chương trình
-1. Tải Visual Studio Code tại https://code.visualstudio.com/ và cài đặt môi trường cho C++
-2. Clone file github về máy
-3. Chạy game bằng câu lệnh "make" và ".\main.exe" tại terminal
-4. Cách nhanh hơn là clone file gihub về máy và chạy file main.exe
+1. Tải file source code game trong link github bằng cách chọn Code->Download Zip
+2. Giải nén file .rar
+3. Mở file BTL_snake_game-main, đưa chuột đến khoảng trống trong file. Giữ phím Shift và ấn chuột phải, chọn Open PowerShell window here
+4. Sau khi cửa sổ Windows PowerShell hiện lên, 
 
 # 3. Cách chơi
 1. Điều khiển rắn bằng phím Left, Right, Up, Down để ăn táo

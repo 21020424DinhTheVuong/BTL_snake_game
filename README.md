@@ -16,14 +16,24 @@
 2. Có 4 level game, sau mỗi màn và mỗi khi ăn táo, tốc độ rắn sẽ tăng
 3. Kết thúc game khi rắn đâm vào tường hoặc đâm vào thân
 # 4. Các chức năng đã cài đặt
-1. Hình ảnh, nhạc, sound effect
-2. Tạm dừng game
-3. Có nhiều màn chơi
-4. Video demo https://youtu.be/ByONL_t0YXM
+1. Hình ảnh của menu và các vật thể
+2. Nhạc chạy khi bắt đầu trò chơi
+3. Sound effect khi ăn táo và đâm và tường(hoặc thân rắn)
+4. Tạm dừng game
+5. Có nhiều màn chơi (4 màn)
+6. Video demo https://youtu.be/ByONL_t0YXM
 # 5. Kỹ thuật lập trình
-1. Mảng, con trỏ, class, enum, hàng đợi,...
-2. Thư viện đồ họa SFML
+1. Mảng, con trỏ, class, enum, hàng đợi deque
+2. Sử dụng thao tác đọc tệp để load level mới
+3. Sinh số giả ngẫu nhiên random
+4. Kỹ thuật chia tách file .cpp và file .h để dễ dàng quản lí
+5. Thư viện đồ họa SFML load các hình ảnh , âm thanh, tạo các vật thể
 # 6. Kết luận
 1. Đồ họa game và âm thanh ở mức ổn
 2. Có tham khảo trên youtube
-3. Hướng phát triển: Thêm các chức năng cho game, thêm highscore, nhập tên người chơi, thêm level, tối ưu hóa code
+3. Hướng phát triển:
+  * Thêm highscore cho trò chơi
+  * Thêm các chức năng cho game như cài đặt âm thanh tùy chọn, lưu lại game khi thoát game mà chưa gameover
+  * Thêm nhiều level hơn, thêm khả năng đi xuyên tường
+  * Tối ưu hóa code
+  * Sử dụng các thư viện đồ họa khác để game đẹp hơn và chơi tốt hơn
